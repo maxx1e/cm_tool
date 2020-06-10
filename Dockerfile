@@ -22,6 +22,6 @@ RUN echo "[INFO] Install CM clinet $CM_VERSION." && \
     curl --silent --show-error --output ${CM_HOME}/LICENSE "https://raw.githubusercontent.com/SAP/devops-cm-client/master/LICENSE" && \
     chown -R cmtool:cmtool "${CM_HOME}" && \
     ln -s "${CM_HOME}/bin/cmclient" "/usr/local/bin/cmclient"
-
+# In order to allow possibility to add new cert with keytool 
+RUN chmod 775 /usr/local/openjdk-8/lib/security/cacerts
 WORKDIR $CM_HOME/bin
-USER cmtool

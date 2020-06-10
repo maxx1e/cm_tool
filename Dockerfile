@@ -6,7 +6,7 @@ ARG CM_USER_HOME=/home/cmtool
 
 # Run environment and shell
 ENV CM_HOME=/opt/sap/cmclient
-
+ENV CMCLIENT_OPTS="-Dcom.sun.net.ssl.checkRevocation=false"
 RUN echo "[INFO] handle users permission." && \
     useradd --home-dir "${CM_USER_HOME}" --create-home --shell /bin/bash --user-group --uid 1000 --comment 'DevOps CM tool' --password "$(echo weUseCm |openssl passwd -1 -stdin)" cmtool && \
     # Allow anybody to write into the images HOME

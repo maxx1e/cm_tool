@@ -1,4 +1,4 @@
-FROM openjdk:8-jre-slim
+FROM openjdk:11-jre-slim
 
 # Build Arguments (keep in mind that only 2.0.1 is working with Solution Manager)
 ARG CM_VERSION=2.0.1

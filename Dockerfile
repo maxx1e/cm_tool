@@ -15,8 +15,12 @@ ENV JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64"
 # Image issue while JRE installation (https://github.com/debuerreotype/docker-debian-artifacts/issues/24)
 RUN mkdir -p /usr/share/man/man1
 # Update repo and install JRE (openjdk images has problems with cert path)
-RUN apt-get update && apt-get install -y --no-install-recommends curl openjdk-11-jre-headless && \
+RUN apt-get update && apt-get install -y --no-install-recommends curl jq openjdk-11-jre-headless && \
     rm -rf /var/lib/apt/lists/*
+# Install yq processing tool
+RUN curl -LJO https://github.com/mikefarah/yq/releases/download/3.4.1/yq_linux_amd64 && \
+    chmod a+rx yq_linux_amd64 && \
+    mv yq_linux_amd64 /opt/yq
 # Handle user permissions
 RUN echo "[INFO] Handle users permission." && \
     useradd --home-dir "${CM_USER_HOME}" --create-home --shell /bin/bash --user-group --uid 1000 --comment 'DevOps CM tool' --password "$(echo weUseCm |openssl passwd -1 -stdin)" cmtool && \

@@ -20,7 +20,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends curl jq openjdk
 # Install yq processing tool
 RUN curl -LJO https://github.com/mikefarah/yq/releases/download/3.4.1/yq_linux_amd64 && \
     chmod a+rx yq_linux_amd64 && \
-    mv yq_linux_amd64 /opt/yq
+    mv yq_linux_amd64 /opt/yq && \
+    ln -sf /opt/yq /bin/yq
 # Handle user permissions
 RUN echo "[INFO] Handle users permission." && \
     useradd --home-dir "${CM_USER_HOME}" --create-home --shell /bin/bash --user-group --uid 1000 --comment 'DevOps CM tool' --password "$(echo weUseCm |openssl passwd -1 -stdin)" cmtool && \
